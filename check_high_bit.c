@@ -27,21 +27,19 @@ unsigned char decimal_to_binary(unsigned char input){
 	return 0;
 }
 unsigned char find_highest(unsigned char input){
-	int i = 0;
-	unsigned char check = 1;
-	int counter = 0;
+	int i = 0;              		//Cycle controlling variable
+	unsigned char check = 1;		//Mask to checck high bit
+	unsigned char high_bit = 0;		//count high set bits in number
 
 	while(i < 8){
-		decimal_to_binary(check);
 			if(input & check){
-				counter++;
+				high_bit = i;
 			}
+			check = check << 1;
+			i++;
 		}
-		check = check << 1;
-		i++;
-	}
-	
-	return counter;
+		
+	return high_bit;
 }
 /******************MAIN*********************/
 int main(){
@@ -54,6 +52,6 @@ int main(){
 		printf("The binary of %hhu is: \n", num_entered);
 		decimal_to_binary(num_entered);
 		highest = find_highest(num_entered);
-		print("Highest order set bit is on place %d\n", highest);
+		printf("Highest order set bit in %hhu is %hhu\n", num_entered, highest);
 	}
 }
